@@ -1,0 +1,32 @@
+name: Publish to GitHub Packages
+
+on:
+  push:
+    branches:
+      - master   # main 브랜치에 푸시될 때마다 실행 (필요에 맞게 변경)
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+          
+      - name: Grant execute permission for Gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: Publish to GitHub Packages
+        run: ./gradlew publish
+        env:
+          GITHUB_USER: ${{ secrets.GITHUB_USER }}   # GitHub 사용자명
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub 토큰
