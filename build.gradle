@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.seongmin1117'
-version = '1.0.2-SNAPSHOT'
+version = '1.0.3-SNAPSHOT'
 
 java {
     toolchain {
@@ -25,7 +25,7 @@ publishing {
 
             groupId = 'com.seongmin'
             artifactId = 'common-library'
-            version = '1.0.2-SNAPSHOT'
+            version = '1.0.3-SNAPSHOT'
         }
     }
     repositories {
@@ -34,8 +34,8 @@ publishing {
             url = uri("https://maven.pkg.github.com/seongmin1117/msa-common")
 
             credentials {
-                username = project.findProperty("githubUser") ?: System.getenv("USER")
-                password = project.findProperty("githubToken") ?: System.getenv("TOKEN")
+                username = project.findProperty("githubUser") ?: System.getenv("GITHUB_USER")
+                password = project.findProperty("githubToken") ?: System.getenv("GITHUB_TOKEN")
             }
         }
     }
@@ -45,4 +45,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.4.2'
     compileOnly 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
+}
+
+// 실행 가능한 JAR을 만들지 않도록 설정
+tasks.named("bootJar") {
+    enabled = false
 }
