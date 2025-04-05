@@ -23,7 +23,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Publish to GitHub Packages
-        run: ./gradlew publish --info
+        run: ./gradlew publish
         env:
           USER: ${{ secrets.USER }}
           TOKEN: ${{ secrets.TOKEN }}
